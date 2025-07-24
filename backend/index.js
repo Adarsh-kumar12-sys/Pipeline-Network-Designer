@@ -1,46 +1,41 @@
-// import authRoutes from "./routes/authRoutes.js";
-// import graphRoutes from "./routes/graphRoutes.js";
-// import express from "express";
-// import cors from "cors";
-// import bodyParser from "body-parser";
+// Load env variables first
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const connectDB = require('./config/db'); // 👈 Import
+const connectDB = require('./config/db');
 
-const app = express();
-const PORT = 5000;
-
-// Connect MongoDB
-connectDB();
-
-// Middleware
-app.use(cors());
-app.use(bodyParser.json());
-
-// Routes
 const authRoutes = require('./routes/authRoutes');
 const mstRoutes = require('./routes/mstRoutes');
+const mstDesignRoutes = require('./routes/mstDesignRoutes');
 
+const app = express();
 
+// ✅ Connect MongoDB
+connectDB();
 
-const { config } = require('dotenv');
+// ✅ Middleware
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  credentials: true,
+}));
+app.use(bodyParser.json());
 
-
-//app.use('/api', dijkstraRoutes);
+// ✅ Routes
 app.use("/api/auth", authRoutes);
-app.use('/api/mst', mstRoutes);
-app.use("/api/mstDesign", require("./routes/mstDesignRoutes"));
-app.use('/api/mst/designs', require('./routes/mstDesignRoutes'));
+app.use("/api/mst", mstRoutes);
+app.use("/api/mstDesign", mstDesignRoutes);
+app.use("/api/mst/designs", mstDesignRoutes); // Consider merging under one consistent route
 
-
-
+// ✅ Test route
 app.get('/', (req, res) => {
   res.send('Backend is running 🚀');
 });
 
+// ✅ Port from env
+const PORT = process.env.PORT;
+
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
-
-

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { greenToast } from '../utils/toastStyles';
 import { redToast } from '../utils/toastStyles';
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 const SignupPage = () => {
   const [username, setUsername] = useState(""); // matches backend
@@ -16,7 +17,7 @@ const SignupPage = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/signup", {
+     const res = await axios.post(`${BASE_URL}/auth/signup`, {
         username,
         email,
         password,

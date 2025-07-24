@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { greenToast } from '../utils/toastStyles';
 import { redToast } from '../utils/toastStyles';
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+
 
 import ControlPanel from '../components/ControlPanel';
 import GraphDisplay from '../components/GraphDisplay';
@@ -161,9 +163,9 @@ const handleAddNodeNameSubmit = (nameInput) => {
       // console.log("Auth token from context:", token);
       // console.log("Graph data being sent:", graphData);
 
-      const response = await axios.post(
-        "http://localhost:5000/api/mst/calculate",
-        graphData,
+     const response = await axios.post(
+  `${BASE_URL}/mst/calculate`,
+  graphData,
         {
           headers: {
             Authorization: `Bearer ${token}`, // `auth` is used here
@@ -210,7 +212,7 @@ const handleAddNodeNameSubmit = (nameInput) => {
   }
 
   try {
-    await axios.post('http://localhost:5000/api/mstDesign', {
+   await axios.post(`${BASE_URL}/mstDesign`, {
       name: value,
       nodes: nodes.map(n => ({
         id: n.id,
@@ -259,7 +261,7 @@ const handleAddNodeNameSubmit = (nameInput) => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://localhost:5000/api/mst/designs/${designId}`, {
+      const response = await axios.get(`${BASE_URL}/mst/designs/${designId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
