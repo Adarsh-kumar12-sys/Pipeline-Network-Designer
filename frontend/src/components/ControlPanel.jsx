@@ -332,7 +332,7 @@ const styles = {
   border: '1px solid #ced4da',
   fontSize: '0.85em',
   boxSizing: 'border-box',
-  width: '175px', // match inputGroup width
+  width: '126px', // match inputGroup width
 },
 
   addEdgeFormButton: {
