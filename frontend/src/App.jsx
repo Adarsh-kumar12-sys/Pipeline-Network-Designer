@@ -10,7 +10,7 @@ import Home from "./pages/Home";
 
 function App() {
   return (
-    <BrowserRouter> {/* This is your main router */}
+    
       <AuthProvider> {/* AuthProvider is a child of the router */}
         <div> {/* You can keep this div or remove it if not needed for layout */}
           <Routes>
@@ -21,7 +21,7 @@ function App() {
           </Routes>
         </div>
       </AuthProvider>
-    </BrowserRouter>
+   
   );
 }
 
